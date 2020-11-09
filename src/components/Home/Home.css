@@ -1,0 +1,11 @@
+.home{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    padding-left: 42px;
+}
+
+img{
+    width: 100%;
+    height: auto;
+}

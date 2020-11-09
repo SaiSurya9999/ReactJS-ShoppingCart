@@ -1,0 +1,13 @@
+.category li{
+    cursor: pointer;
+}
+
+.selectedlink{
+    border-left: solid 5px #007bff;
+}
+
+.category{
+    position: absolute;
+    left: 0;
+    top: 10%;
+}

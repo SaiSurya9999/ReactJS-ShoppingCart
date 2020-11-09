@@ -1,8 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+// CSS Package imports
+import 'bootstrap/dist/css/bootstrap.css';
+import '@fortawesome/fontawesome-free/css/all.css';
+import 'animate.css/animate.css';
+
+// Javascript Package Imports
+import 'bootstrap/dist/js/bootstrap.js';
+import axios from 'axios';
+import 'jquery/dist/jquery';
+
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+// RootUrl
+axios.defaults.baseURL = "http://localhost:3000";
+// axios.defaults.headers.common['authorization', localStorage.getItem('token') ? localStorage.getItem('token').toString() : "Not Available"]
+
+// HTTP Request Interceptors. Eg: Loader Display and Adding Authorization headers etc
+axios.interceptors.request.use(req => {
+  return req;
+}, err => {
+  console.log(err);
+  return Promise.reject(err);
+});
 
 ReactDOM.render(
   <React.StrictMode>

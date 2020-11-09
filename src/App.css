@@ -23,7 +23,9 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
+a{
+  cursor: pointer;
+}
 .App-link {
   color: #61dafb;
 }
@@ -35,4 +37,12 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.btn-primary {
+  background-color: #282c34;
+}
+
+.btn-primary:hover{
+  background-color: #6c757d;
 }
