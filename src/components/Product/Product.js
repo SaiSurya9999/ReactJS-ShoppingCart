@@ -26,10 +26,15 @@ const Product = (prop) => {
                 <br></br>
                 <small className="text-muted">Seller: Big Basket</small>
                 <br></br>
-                
-                 <br></br>
-                <button onClick={prop.click} className={ prop.check ? "btn btn-warning disabled" : "btn btn-warning" }>Add to Cart</button>
-                <button className="btn btn-primary ml-2">Buy Now</button>
+
+                <br></br>
+                {
+                    !prop.check ? <button onClick={prop.click} className={prop.check ? "btn btn-warning disabled" : "btn btn-warning"}>Add to Cart</button>
+                        : <div> <button onClick={prop.removeFromCart} className="btn btn-light"> <i className="fas fa-minus"></i> </button>
+                            <button onClick={prop.click} className="btn btn-light"> <i className="fas fa-plus"></i> </button> </div>
+                }
+
+                <button onClick={prop.buyClick} className="btn btn-primary ml-2">Buy Now</button>
 
             </div>
         </div>

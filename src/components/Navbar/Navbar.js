@@ -15,7 +15,7 @@ const Navbar = (props) => {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav mr-auto">
                     <li className="nav-item">
-                        <NavLink exact to="/" activeClassName="active" className="nav-link" >Home <span className="sr-only">(current)</span></NavLink>
+                        <NavLink exact to="/home" activeClassName="active" className="nav-link" >Home <span className="sr-only">(current)</span></NavLink>
                     </li>
                     <li className="nav-item">
                         <NavLink exact to="login" activeClassName="active" className="nav-link" >Login/Signup</NavLink>

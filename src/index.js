@@ -10,6 +10,8 @@ import 'animate.css/animate.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import axios from 'axios';
 import 'jquery/dist/jquery';
+import 'parsleyjs/dist/parsley';
+
 
 import './index.css';
 import App from './App';

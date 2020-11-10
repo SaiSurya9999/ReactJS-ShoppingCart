@@ -46,3 +46,11 @@ a{
 .btn-primary:hover{
   background-color: #6c757d;
 }
+
+.btn-primary:active{
+  background-color: #6c757d !important;
+}
+
+.btn-primary:focus{
+  background-color: #282c34 !important;
+}

@@ -1,4 +1,5 @@
-import { BrowserRouter, Route } from 'react-router-dom';
+import React, { Suspense } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/Home';
@@ -7,16 +8,28 @@ import Login from './components/Login/Login';
 
 import './App.css';
 
-function App() {
+// import PageNotFound from './components/PageNotFound/PageNotFound'; || Lazy loading using React Package
+const PageNotFound = React.lazy(() => import('./components/PageNotFound/PageNotFound'));
+
+const App = () => {
   return (
     <div className="App">
       <BrowserRouter>
         <Navbar></Navbar>
         <div className="container-fluid">
-          <Route path="/" exact component={Home} />
-          <Route path="/home" component={Home} />
-          <Route path="/cart" component={Cart} />
-          <Route path="/login" component={Login} />
+         
+          <Switch>
+            <Route exact path="/" component={Home} /> 
+            <Route path="/home" component={Home} />
+            <Route path="/cart" component={Cart} />
+            <Route path="/login" component={Login} />
+
+            <Route render={() => {
+              return <Suspense fallback={<div>Loading...</div>}>
+                <PageNotFound />
+              </Suspense>
+            }}></Route>
+          </Switch>
         </div>
       </BrowserRouter>
     </div>
@@ -24,3 +37,13 @@ function App() {
 }
 
 export default App;
+
+/* Lazy Loading Component Manually
+
+import lazyLoader from './components/Auxilary/lazyLoader';
+
+const Login = lazyLoader(() => {
+  return import('./components/Login/Login');
+});
+
+*/
