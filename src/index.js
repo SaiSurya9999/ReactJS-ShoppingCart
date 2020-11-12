@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+
 // CSS Package imports
 import 'bootstrap/dist/css/bootstrap.css';
 import '@fortawesome/fontawesome-free/css/all.css';
@@ -17,6 +18,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// Redux for better state management
+import { createStore } from 'redux';
+import reducer from './store/reducer';
+import { Provider } from 'react-redux';
+
+const store = createStore(reducer);
+
+
+
 // RootUrl
 axios.defaults.baseURL = "http://localhost:3000";
 // axios.defaults.headers.common['authorization', localStorage.getItem('token') ? localStorage.getItem('token').toString() : "Not Available"]
@@ -30,9 +40,9 @@ axios.interceptors.request.use(req => {
 });
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 

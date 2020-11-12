@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-
+import { connect } from 'react-redux';
 import "./Navbar.css";
 
 const Navbar = (props) => {
-    let cartCount = 0;
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <a className="navbar-brand" ><i className="fas fa-gifts"></i> JustShop</a>
@@ -34,6 +33,33 @@ const Navbar = (props) => {
                 </ul>
 
 
+
+                <Link to="/cart">
+                    <button className="btn">
+                        <h3><i style={{ color: "#fff" }} className="fas fa-shopping-cart"></i>
+                            {
+                                props.cartCount > 0 ? <span className='badge badge-warning' id='lblCartCount'> {props.cartCount} </span> : null
+                            }
+                        </h3>
+                    </button>
+                </Link>
+            </div>
+        </nav>
+
+
+    );
+};
+
+// Configuration to take only the required slice of store from Redux
+const mapStateToProps = state => {
+    return {
+       cartCount: state.cartCount
+    };
+}
+export default connect(mapStateToProps)(Navbar);
+
+
+/* 
                 <div className="btn-group dropleft">
                     <button type="button" className="btn btn-secondary dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         All
@@ -48,20 +74,4 @@ const Navbar = (props) => {
                 </div>
                 <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>
                 <button className="btn btn-outline-success my-2 my-sm-0" type="submit"><i className="fas fa-search"></i></button>
-                <Link to="/cart">
-                    <button className="btn">
-                        <h3><i style={{ color: "#fff" }} className="fas fa-shopping-cart"></i>
-                            {
-                                cartCount > 0 ? <span className='badge badge-warning' id='lblCartCount'> 50 </span> : null
-                            }
-                        </h3>
-                    </button>
-                </Link>
-            </div>
-        </nav>
-
-
-    );
-};
-
-export default Navbar;
+*/

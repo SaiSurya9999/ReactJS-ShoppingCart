@@ -2,11 +2,11 @@
 #lblCartCount {
     font-size: 12px;
     background:#ffc107;
-    color: black;
-    padding: 7px;
+    color: blueviolet;
+    padding: 6px;
     border-radius: 10px;
     vertical-align: top;
-    margin-left: -10px;
+    margin-left: -3px;
 }
 .badge {
   padding-left: 9px;

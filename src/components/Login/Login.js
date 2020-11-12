@@ -3,8 +3,6 @@ import $ from 'jquery';
 
 import './Login.css';
 
-
-
 class Login extends Component {
     state = {
         route: false,

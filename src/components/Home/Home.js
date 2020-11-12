@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Product from '../Product/Product'
 
@@ -25,7 +26,7 @@ class Home extends Component {
         }
         // Checking the cart for button css
         let cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : [];
-        
+
 
         this.setState({
             products: this.updateCart(products, cart)
@@ -41,25 +42,25 @@ class Home extends Component {
         let cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : [];
 
         let searchIndex = cart.map(item => { return item.id; }).indexOf(id);
-        
-        if(searchIndex > -1) {
-          if(cart[searchIndex].qty > 1){
-            cart[searchIndex].qty--;
-          } else {
-              // Atleast one is required
-              cart.splice(searchIndex, 1);
-          }
+
+        if (searchIndex > -1) {
+            if (cart[searchIndex].qty > 1) {
+                cart[searchIndex].qty--;
+            } else {
+                // Atleast one is required
+                cart.splice(searchIndex, 1);
+            }
         } else {
-           // Item do not exist in cart
+            // Item do not exist in cart
         }
-        
+
         localStorage.setItem("cart", JSON.stringify(cart));
         products = [...products];
         cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : [];
         this.setState({
             products: this.updateCart(products, cart)
         });
-     
+
     }
 
 
@@ -78,7 +79,7 @@ class Home extends Component {
                 // Item exist in cart incrimenting the qty
                 cart[searchIndex].qty++;
             } else {
-               // Cart qty limit exceeded
+                // Cart qty limit exceeded
             }
         }
         products = [...products];
@@ -98,15 +99,16 @@ class Home extends Component {
         }
     };
 
-    updateCart(products, cart){
-       products = products.map(item => { 
+    updateCart(products, cart) {
+        
+        products = products.map(item => {
             item.cart = false;
             return item;
         });
         products.forEach((item, index) => {
             for (let k = 0; k < cart.length; k++) {
                 if (cart[k].id === item.id) {
-                    products[index].cart =  true;
+                    products[index].cart = true;
                 }
             }
         });
@@ -122,7 +124,8 @@ class Home extends Component {
                             click={() => this.addToCart(item.id.toString(), index, "1")}
                             buyClick={() => this.addToCart(item.id.toString(), index, "2")}
                             check={item.cart}
-                            removeFromCart={() => this.removeFromCart(item.id.toString(), index) }>
+                            cartUpdate={this.props.cartUpdate}
+                            removeFromCart={() => this.removeFromCart(item.id.toString(), index)}>
                         </Product>
                     })
                 }
@@ -133,7 +136,20 @@ class Home extends Component {
     }
 };
 
-export default Home;
+const mapStateToProps = (state) => {
+    return {
+        cartCount: state.cartCount
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+   return {
+       cartUpdate: () => dispatch({ type: "cartUpdate" }) 
+   }
+};
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(Home);
 
 // Re Render Causing Issue so this snippet placed out of the component to execute only once
 // let products = [];

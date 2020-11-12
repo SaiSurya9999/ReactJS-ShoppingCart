@@ -29,12 +29,12 @@ const Product = (prop) => {
 
                 <br></br>
                 {
-                    !prop.check ? <button onClick={prop.click} className={prop.check ? "btn btn-warning disabled" : "btn btn-warning"}>Add to Cart</button>
-                        : <div> <button onClick={prop.removeFromCart} className="btn btn-light"> <i className="fas fa-minus"></i> </button>
-                            <button onClick={prop.click} className="btn btn-light"> <i className="fas fa-plus"></i> </button> </div>
+                    !prop.check ? <button onClick={() => { prop.click(); prop.cartUpdate(); }} className={prop.check ? "btn btn-warning disabled" : "btn btn-warning"}>Add to Cart</button>
+                        : <div> <button onClick={() => { prop.removeFromCart(); prop.cartUpdate(); }} className="btn btn-light"> <i className="fas fa-minus"></i> </button>
+                            <button onClick={() => { prop.click(); prop.cartUpdate(); }} className="btn btn-light"> <i className="fas fa-plus"></i> </button> </div>
                 }
 
-                <button onClick={prop.buyClick} className="btn btn-primary ml-2">Buy Now</button>
+                <button onClick={() => { prop.buyClick(); prop.cartUpdate(); }} className="btn btn-primary ml-2">Buy Now</button>
 
             </div>
         </div>
