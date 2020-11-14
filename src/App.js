@@ -13,13 +13,13 @@ const PageNotFound = React.lazy(() => import('./components/PageNotFound/PageNotF
 
 const App = () => {
   return (
-    <div className="App">
-      <BrowserRouter>
+    <BrowserRouter basename="/reactjs/">
+      <div className="App">
         <Navbar></Navbar>
         <div className="container-fluid">
-         
+
           <Switch>
-            <Route exact path="/" component={Home} /> 
+            <Route exact path="/" component={Home} />
             <Route path="/home" component={Home} />
             <Route path="/cart" component={Cart} />
             <Route path="/login" component={Login} />
@@ -31,8 +31,10 @@ const App = () => {
             }}></Route>
           </Switch>
         </div>
-      </BrowserRouter>
-    </div>
+      </div>
+      <div id="spinner" hidden="hidden" className="spinner"></div>
+    </BrowserRouter>
+
   );
 }
 

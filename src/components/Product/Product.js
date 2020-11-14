@@ -5,6 +5,15 @@ import { withRouter } from 'react-router-dom';
 import './Product.css';
 
 const Product = (prop) => {
+    const getQty = (index) => {
+        let cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+   
+        let i = cart.map(item => item.id).indexOf(index);
+        if(i !== -1){
+            return cart[i].qty;
+        }
+        return 0;
+    }
     return (
         <div className="col-md-3">
             <div className="card">
@@ -31,6 +40,7 @@ const Product = (prop) => {
                 {
                     !prop.check ? <button onClick={() => { prop.click(); prop.cartUpdate(); }} className={prop.check ? "btn btn-warning disabled" : "btn btn-warning"}>Add to Cart</button>
                         : <div> <button onClick={() => { prop.removeFromCart(); prop.cartUpdate(); }} className="btn btn-light"> <i className="fas fa-minus"></i> </button>
+                            <button className="btn btn-light">{getQty(prop.index)}</button>
                             <button onClick={() => { prop.click(); prop.cartUpdate(); }} className="btn btn-light"> <i className="fas fa-plus"></i> </button> </div>
                 }
 

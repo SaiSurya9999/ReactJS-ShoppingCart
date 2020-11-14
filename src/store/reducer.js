@@ -4,7 +4,7 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-
+    // console.log(localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : "CART NOT SET!");
     switch (action.type) {
         case "cartUpdate":
             return {

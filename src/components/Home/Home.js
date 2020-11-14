@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import Product from '../Product/Product'
-
 import './Home.css'
-import image from '../../assets/tomato.jpg';
 import $ from 'jquery/dist/jquery';
 
 
@@ -14,23 +13,42 @@ class Home extends Component {
 
     componentDidMount() {
         products = [];
+
         // API calling in Life Cycle Hook
-        for (let k = 0; k < 30; k++) {
-            products.push({
-                id: "tomato" + k,
-                name: "Tomato",
-                desc: "This is a Tomato.",
-                img: image,
-                cart: false
-            });
-        }
-        // Checking the cart for button css
-        let cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : [];
+        axios.get("/api/catlog/products").then(res => {
+            if (res.data.result) {
+                res.data.data.forEach((item, index) => {
+                    products.push({
+                        id: index,
+                        name: item.productName,
+                        desc: item.productDesc,
+                        price: item.productPrice,
+                        img: item.imagePath,
+                        cart: false
+                    });
+                });
+                let cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : [];
 
 
-        this.setState({
-            products: this.updateCart(products, cart)
+                this.setState({
+                    products: this.updateCart(products, cart)
+                });
+            }
+        }).catch(err => {
+            console.log(err);
         });
+
+        // for (let k = 0; k < 30; k++) {
+        //     products.push({
+        //         id: "tomato" + k,
+        //         name: "Tomato",
+        //         desc: "This is a Tomato.",
+        //         img: image,
+        //         cart: false
+        //     });
+        // }
+        // Checking the cart for button css
+
 
     }
 
@@ -66,7 +84,6 @@ class Home extends Component {
 
 
     addToCart(id, index, type) {
-
         let cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : [];
 
         let searchIndex = cart.map(item => { return item.id; }).indexOf(id);
@@ -100,7 +117,7 @@ class Home extends Component {
     };
 
     updateCart(products, cart) {
-        
+
         products = products.map(item => {
             item.cart = false;
             return item;
@@ -117,21 +134,27 @@ class Home extends Component {
     }
     render() {
         return (
-            <div className="home container-fluid">
-                {
-                    this.state.products.map((item, index) => {
-                        return <Product key={item.id} name={item.name} desc={item.desc} img={item.img}
-                            click={() => this.addToCart(item.id.toString(), index, "1")}
-                            buyClick={() => this.addToCart(item.id.toString(), index, "2")}
-                            check={item.cart}
-                            cartUpdate={this.props.cartUpdate}
-                            removeFromCart={() => this.removeFromCart(item.id.toString(), index)}>
-                        </Product>
-                    })
-                }
+            <React.Fragment>
+                <div className="alert alert-danger text-left" role="alert">
+                    <a href="/" target="_blank">Click here</a> to view <i className="fab fa-angular"></i>  Angular version of this app.
+                 </div>
+                <div className="home container-fluid">
+                    {
+                        this.state.products.map((item, index) => {
+                            return <Product key={index} name={item.name} desc={item.desc} img={item.img}
+                                click={() => this.addToCart(index, index, "1")}
+                                buyClick={() => this.addToCart(index, index, "2")}
+                                check={item.cart}
+                                index={index}
+                                cartUpdate={this.props.cartUpdate}
+                                removeFromCart={() => this.removeFromCart(index, index)}>
+                            </Product>
+                        })
+                    }
 
 
-            </div>
+                </div>
+            </React.Fragment>
         );
     }
 };
@@ -143,13 +166,13 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-   return {
-       cartUpdate: () => dispatch({ type: "cartUpdate" }) 
-   }
+    return {
+        cartUpdate: () => dispatch({ type: "cartUpdate" })
+    }
 };
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
 
 // Re Render Causing Issue so this snippet placed out of the component to execute only once
 // let products = [];
