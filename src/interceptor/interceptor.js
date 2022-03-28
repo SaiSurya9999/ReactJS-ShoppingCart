@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const interceptRequest = () => {
     // RootUrl
-     axios.defaults.baseURL = "http://localhost:3000";
-    // axios.defaults.baseURL = "https://justshop-api.herokuapp.com";
+    // axios.defaults.baseURL = "http://localhost:3000";
+    axios.defaults.baseURL = "https://justshop-api.herokuapp.com";
     // axios.defaults.headers.common['authorization', localStorage.getItem('token') ? localStorage.getItem('token').toString() : "Not Available"]
 
     // HTTP Request Interceptors. Eg: Loader Display and Adding Authorization headers etc

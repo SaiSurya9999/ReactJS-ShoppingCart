@@ -13,7 +13,6 @@ class Home extends Component {
 
     componentDidMount() {
         products = [];
-
         // API calling in Life Cycle Hook
         axios.get("/api/catlog/products").then(res => {
             if (res.data.result) {
